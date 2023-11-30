@@ -9,31 +9,19 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LANGUAGE=ja_JP:ja \ 
     TZ=Asia/Tokyo
 
+# パッケージインストール
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    fonts-takao \
-    language-pack-ja-base \
-    language-pack-ja \
     locales \
     sudo \
-    tzdata \
-    xdg-user-dirs \
+    vim \
     && \
 # ロケールの生成
-    locale-gen ja_JP.UTF-8 \
+    localedef -f UTF-8 -i ja_JP ja_JP.UTF-8 \
     && \
 # Clean up
     apt-get clean && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
-
-# 日本語フォルダ名を英語に改名
-RUN LANG=C xdg-user-dirs-update --force
-
-# pipコマンドの更新
-RUN pip install --upgrade pip
-
-# pythonライブラリーをインストール
-RUN pip install -r requirements.txt
 
 # sudo可能な一般ユーザーを追加
 ARG USERNAME=user
@@ -49,6 +37,18 @@ USER $USERNAME
 
 # 作業ディレクトリを設定
 WORKDIR /home/$USERNAME/workspace
+
+# Pythonライブラリーのリストをコピー
+COPY requirements.txt /home/$USERNAME/workspace
+
+# pipコマンドの更新
+RUN pip install --upgrade pip
+
+# setuptoolsコマンドの更新
+RUN pip install --upgrade setuptools
+
+# pythonライブラリーをインストール
+RUN pip install -r /home/$USERNAME/workspace/requirements.txt
 
 # コンテナ起動時に実行するコマンド
 CMD ["/bin/bash"]
