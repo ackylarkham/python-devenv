@@ -1,5 +1,5 @@
 # Python 開発環境
-#   Python version: 3.12
+#   Python version: 最新版
 #
 FROM python:latest
 
