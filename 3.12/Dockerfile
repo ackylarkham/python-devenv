@@ -1,7 +1,7 @@
 # Python 開発環境
 #   Python version: 3.12
 #
-FROM python:3.12
+FROM python:3.12-slim
 
 # 環境変数
 ENV DEBIAN_FRONTEND=noninteractive \  
@@ -36,10 +36,10 @@ RUN groupadd -g $GID $GROUPNAME && \
 USER $USERNAME
 
 # 作業ディレクトリを設定
-WORKDIR /home/$USERNAME/workspace
+WORKDIR /home/$USERNAME
 
 # Pythonライブラリーのリストをコピー
-COPY requirements.txt /home/$USERNAME/workspace
+COPY requirements.txt /home/$USERNAME
 
 # pipコマンドの更新
 RUN pip install --upgrade pip
@@ -48,7 +48,7 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 
 # pythonライブラリーをインストール
-RUN pip install -r /home/$USERNAME/workspace/requirements.txt
+RUN pip install -r /home/$USERNAME/requirements.txt
 
 # コンテナ起動時に実行するコマンド
 CMD ["/bin/bash"]
