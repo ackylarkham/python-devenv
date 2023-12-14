@@ -3,6 +3,8 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
+	"remoteUser": "user",
+	"workspaceFolder": "/home/user",
 	"customizations": {
 		"vscode": {
 			"settings": {},									// VSCode設定
