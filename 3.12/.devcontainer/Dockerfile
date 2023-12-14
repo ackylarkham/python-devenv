@@ -15,6 +15,7 @@ RUN apt-get update && \
     locales \
     sudo \
     vim \
+    git \
     && \
 # ロケールの生成
     localedef -f UTF-8 -i ja_JP ja_JP.UTF-8 \
