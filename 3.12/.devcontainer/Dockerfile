@@ -25,11 +25,11 @@ RUN apt-get update && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # sudo可能な一般ユーザーを追加
-ARG USERNAME=user
-ARG GROUPNAME=user
+ARG USERNAME=developer
+ARG GROUPNAME=developer
 ARG UID=1000
 ARG GID=1000
-ARG PASSWORD=user
+ARG PASSWORD=developer
 RUN groupadd -g $GID $GROUPNAME && \
     useradd -m -s /bin/bash -u $UID -g $GID -G sudo $USERNAME && \
     echo $USERNAME:$PASSWORD | chpasswd && \
