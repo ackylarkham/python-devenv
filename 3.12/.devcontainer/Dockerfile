@@ -18,6 +18,7 @@ RUN apt-get update && \
     git \
     iputils-ping \
     iproute2 \
+    openssh-client \
     && \
 # ロケールの生成
     localedef -f UTF-8 -i ja_JP ja_JP.UTF-8 \
